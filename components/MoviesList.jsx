@@ -13,8 +13,10 @@ export function MoviesList() {
   const [hasMorePages, setHasMorePages] = useState(true);
 
   const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-  const BASE_URL = "https://api.themoviedb.org/3";
-  const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+  const BASE_URL =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://api.themoviedb.org/3";
+  const IMAGE_BASE_URL =
+    process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "https://image.tmdb.org/t/p/w500";
 
   useEffect(() => {
     fetchPopularMovies(1, true);

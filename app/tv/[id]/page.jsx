@@ -35,8 +35,10 @@ export default function TVShowDetailsPage() {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-  const BASE_URL = process.env.BASE_URL;
-  const IMAGE_BASE_URL = process.env.IMAGE_BASE_URL;
+  const BASE_URL =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://api.themoviedb.org/3";
+  const IMAGE_BASE_URL =
+    process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "https://image.tmdb.org/t/p/w500";
   const BACKDROP_BASE_URL =
     "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces";
 
