@@ -52,14 +52,10 @@ export default async function Home() {
             <p className="text-gray-400 text-sm">
               Press{" "}
               <kbd className="px-2 py-1 bg-gray-800 border border-gray-600 rounded text-xs font-mono">
-                Cmd
-              </kbd>{" "}
-              +
-              <kbd className="px-2 py-1 bg-gray-800 border border-gray-600 rounded text-xs font-mono ml-1">
                 Enter
               </kbd>
               <span className="ml-2">
-                or scroll down to explore trending movies
+                to search or scroll down to explore trending movies
               </span>
             </p>
           </div>

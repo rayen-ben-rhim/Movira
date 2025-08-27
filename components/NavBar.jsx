@@ -9,7 +9,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
-import { Film, Menu, X, Play, Tv, Star, Heart } from "lucide-react";
+import { Film, Menu, X, Play, Tv, Star, Heart, Search } from "lucide-react";
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,6 +19,7 @@ const NavBar = () => {
   };
 
   const navItems = [
+    { name: "Search", icon: Search, href: "/search" },
     { name: "Movies", icon: Film, href: "/movies" },
     { name: "TV Shows", icon: Tv, href: "/tv" },
     { name: "Favorites", icon: Heart, href: "/favorites" },

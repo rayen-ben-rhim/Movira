@@ -1,11 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, MessageCircle, ArrowUp } from "lucide-react";
 
-export function ModernInput() {
-  const [inputValue, setInputValue] = useState("");
+export function ModernInput({
+  initialValue = "",
+  onSearch,
+  placeholder: customPlaceholder,
+}) {
+  const router = useRouter();
+  const [inputValue, setInputValue] = useState(initialValue);
   const [selectedMood, setSelectedMood] = useState("happy");
   const [showMoodDropdown, setShowMoodDropdown] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
@@ -38,6 +44,32 @@ export function ModernInput() {
 
   const currentMood = moods.find((mood) => mood.value === selectedMood);
 
+  // Update input value when initialValue changes
+  useEffect(() => {
+    setInputValue(initialValue);
+  }, [initialValue]);
+
+  const handleSearch = () => {
+    if (inputValue.trim()) {
+      if (onSearch) {
+        onSearch(inputValue.trim());
+      } else {
+        // Navigate to search page
+        router.push(`/search?q=${encodeURIComponent(inputValue.trim())}`);
+      }
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      handleSearch();
+    } else if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSearch();
+    }
+  };
+
   return (
     <div className="relative w-full">
       <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-3 sm:p-4 border border-gray-700/50 shadow-2xl">
@@ -45,7 +77,11 @@ export function ModernInput() {
           <textarea
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder={`Ask Movira to search about ${categories[placeholderIndex]}`}
+            onKeyDown={handleKeyDown}
+            placeholder={
+              customPlaceholder ||
+              `Ask Movira to search about ${categories[placeholderIndex]}`
+            }
             className="flex-1 bg-transparent text-white placeholder-gray-400 resize-none border-none outline-none text-sm sm:text-base leading-relaxed min-h-[24px] max-h-32 transition-all duration-700 ease-in-out"
             rows={1}
             style={{
@@ -113,7 +149,7 @@ export function ModernInput() {
             </div>
 
             <span className="text-gray-500 text-xs sm:text-sm hidden md:inline">
-              Press Cmd+Enter to enter
+              Press Enter to search
             </span>
           </div>
 
@@ -121,6 +157,7 @@ export function ModernInput() {
             <Button
               variant="ghost"
               size="sm"
+              onClick={handleSearch}
               className="h-7 w-7 sm:h-8 sm:w-8 p-0 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-full"
             >
               <ArrowUp className="h-3 w-3 sm:h-4 sm:w-4" />

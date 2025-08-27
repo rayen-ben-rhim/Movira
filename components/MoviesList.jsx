@@ -49,7 +49,7 @@ export function MoviesList() {
       }
 
       const response = await fetch(
-        `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&page=${page}&include_adult=false&with_genres=16,10751&certification_country=US&certification.lte=U`
+        `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&page=${page}&include_adult=true&with_genres=16,10751&certification_country=US&certification.lte=PG`
       );
 
       if (!response.ok) {
